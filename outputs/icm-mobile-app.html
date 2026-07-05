@@ -90,14 +90,14 @@
     .screen {
       height: 100%;
       display: grid;
-      grid-template-rows: 1fr auto;
+      grid-template-rows: 1fr;
       background: var(--bg);
       position: relative;
     }
 
     .content {
       overflow: auto;
-      padding: 18px 16px 14px;
+      padding: 18px 16px 96px;
       scrollbar-width: none;
     }
 
@@ -2149,14 +2149,41 @@
     .theme-toggle button.active { background: var(--selected); color: var(--primary); }
 
     .tabbar {
-      height: 70px;
-      border-top: 1px solid var(--border);
-      background: color-mix(in srgb, var(--bg) 96%, transparent);
+      height: 68px;
+      left: 16px;
+      right: 16px;
+      bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, .54);
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .74), rgba(255, 255, 255, .42)),
+        color-mix(in srgb, var(--surface) 58%, transparent);
+      -webkit-backdrop-filter: blur(22px) saturate(1.6);
+      backdrop-filter: blur(22px) saturate(1.6);
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      padding: 3px 8px 8px;
-      position: relative;
+      padding: 6px 8px 7px;
+      position: absolute;
       z-index: 20;
+      overflow: hidden;
+      box-shadow:
+        0 20px 42px rgba(0, 63, 47, .14),
+        inset 0 1px 0 rgba(255, 255, 255, .76),
+        inset 0 -1px 0 rgba(0, 84, 61, .06);
+      isolation: isolate;
+    }
+
+    .tabbar::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      border-radius: 27px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, .86), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 46%);
+      opacity: .82;
+      z-index: -1;
     }
 
     .tab {
@@ -2172,9 +2199,15 @@
       gap: 3px;
       position: relative;
       cursor: pointer;
+      border-radius: 20px;
+      transition: color .18s ease, background .18s ease, transform .18s ease;
     }
 
-    .tab.active { color: var(--primary); }
+    .tab.active {
+      color: var(--primary);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .48), rgba(234, 244, 238, .36));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .48);
+    }
 
     .tab > .site-icon {
       width: 22px;
@@ -2182,9 +2215,21 @@
     }
 
     [data-theme="dark"] .tabbar {
-      border-top-color: rgba(246, 247, 242, .11);
-      background: #002f24;
-      box-shadow: 0 -10px 24px rgba(0, 0, 0, .2);
+      border-color: rgba(246, 247, 242, .12);
+      background:
+        linear-gradient(135deg, rgba(10, 83, 63, .72), rgba(0, 31, 24, .52)),
+        rgba(0, 26, 20, .62);
+      box-shadow:
+        0 22px 46px rgba(0, 0, 0, .36),
+        inset 0 1px 0 rgba(255, 255, 255, .12),
+        inset 0 -1px 0 rgba(0, 0, 0, .28);
+    }
+
+    [data-theme="dark"] .tabbar::before {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(139, 208, 168, .22), transparent 35%),
+        linear-gradient(180deg, rgba(255, 255, 255, .10), transparent 48%);
+      opacity: 1;
     }
 
     [data-theme="dark"] .tab {
@@ -2193,15 +2238,18 @@
 
     [data-theme="dark"] .tab.active {
       color: #8BD0A8;
+      background: linear-gradient(180deg, rgba(139, 208, 168, .13), rgba(0, 0, 0, .12));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08);
     }
     .tab.active::before {
       content: "";
       position: absolute;
-      top: -5px;
-      width: 38px;
-      height: 4px;
+      top: 5px;
+      width: 26px;
+      height: 3px;
       border-radius: 999px;
       background: var(--gold);
+      box-shadow: 0 0 14px color-mix(in srgb, var(--gold) 42%, transparent);
     }
 
     i[data-lucide] {
