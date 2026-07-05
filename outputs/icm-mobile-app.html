@@ -2171,7 +2171,7 @@
 
     .qibla-page {
       min-height: calc(100dvh - 126px);
-      padding: 24px 0 18px;
+      padding: 18px 0 18px;
       color: #082118;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,255,255,.96), rgba(251,250,246,.52) 46%, transparent 70%),
@@ -2235,8 +2235,8 @@
 
     .qibla-hero {
       margin: 0;
-      min-height: 0;
-      padding: 0 0 18px;
+      min-height: calc(100dvh - 214px);
+      padding: 0;
       display: grid;
       place-items: center;
       overflow: visible;
@@ -2254,7 +2254,7 @@
     }
 
     .qibla-dial {
-      width: min(100%, 322px);
+      width: min(100%, 348px);
       aspect-ratio: 1;
       position: relative;
       display: grid;
@@ -2378,8 +2378,8 @@
       z-index: 8;
       left: 50%;
       top: 50%;
-      width: 80px;
-      height: 80px;
+      width: 84px;
+      height: 84px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       display: grid;
@@ -2391,8 +2391,8 @@
     }
 
     .kaaba img {
-      width: 62px;
-      height: 62px;
+      width: 66px;
+      height: 66px;
       object-fit: contain;
       object-position: center;
       border-radius: 2px;
@@ -2755,19 +2755,6 @@
               <div class="qibla-needle" id="qiblaNeedle" aria-hidden="true"></div>
             </div>
           </article>
-          <div class="qibla-stats card">
-            <div class="qibla-stat">
-              <div class="qibla-stat-icon"><i data-lucide="navigation"></i></div>
-              <strong id="qiblaBearingDisplay">293&deg;</strong>
-              <span>from North</span>
-            </div>
-            <div class="qibla-stat-divider"></div>
-            <div class="qibla-stat">
-              <div class="qibla-stat-icon kaaba-stat"><img src="assets/kaaba-compass-centered.png" alt=""></div>
-              <strong>4,289</strong>
-              <span>km away</span>
-            </div>
-          </div>
           <article class="card qibla-simple-card">
             <div class="qibla-manual">
               <label for="qiblaManualHeading"><span>Preview heading</span><strong id="qiblaManualValue">0&deg;</strong></label>
