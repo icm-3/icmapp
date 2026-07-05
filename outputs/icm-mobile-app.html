@@ -92,6 +92,7 @@
       display: grid;
       grid-template-rows: 1fr auto;
       background: var(--bg);
+      position: relative;
     }
 
     .content {
@@ -103,6 +104,73 @@
     .content::-webkit-scrollbar { display: none; }
     .page { display: none; }
     .page.active { display: block; }
+
+    .current-prayer-sticky {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      right: 16px;
+      z-index: 30;
+      min-height: 52px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 13px 9px 14px;
+      border: 1px solid color-mix(in srgb, var(--green) 18%, var(--border));
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--surface) 88%, var(--green-pale));
+      box-shadow: 0 14px 30px rgba(0, 84, 61, .11);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px) scale(.985);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .current-prayer-sticky.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .sticky-prayer-label {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--primary);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .105em;
+    }
+
+    .sticky-prayer-name {
+      display: block;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.05;
+      font-weight: 750;
+      letter-spacing: -.025em;
+    }
+
+    .sticky-prayer-time {
+      color: var(--primary);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.025em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    [data-theme="dark"] .current-prayer-sticky {
+      background: color-mix(in srgb, #06261d 82%, var(--surface));
+      border-color: rgba(232, 191, 107, .24);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .30);
+    }
+
+    [data-theme="dark"] .sticky-prayer-label,
+    [data-theme="dark"] .sticky-prayer-time {
+      color: var(--soft-gold);
+    }
 
     .card {
       background: var(--surface);
@@ -2640,6 +2708,13 @@
 <body>
   <main class="phone" data-theme="light" aria-label="ICM mobile app prototype">
     <div class="screen">
+      <div class="current-prayer-sticky" id="currentPrayerSticky" aria-hidden="true">
+        <div>
+          <span class="sticky-prayer-label">Current prayer</span>
+          <strong class="sticky-prayer-name" id="stickyPrayerName">Asr</strong>
+        </div>
+        <span class="sticky-prayer-time" id="stickyPrayerTime">6:24 PM</span>
+      </div>
       <section class="content">
         <div class="page active" data-page="Prayer">
           <article class="card next-card">
@@ -3233,12 +3308,39 @@
       `).join("");
     }
 
+    function setStickyPrayer(current) {
+      const stickyName = $("#stickyPrayerName");
+      const stickyTime = $("#stickyPrayerTime");
+      if (!stickyName || !stickyTime) return;
+      stickyName.textContent = current.name;
+      stickyTime.textContent = current.time;
+    }
+
+    function updateCurrentPrayerSticky() {
+      const sticky = $("#currentPrayerSticky");
+      const content = $(".content");
+      const prayerPage = document.querySelector('[data-page="Prayer"]');
+      const currentCard = prayerPage?.querySelector(".next-card");
+      if (!sticky || !content || !prayerPage?.classList.contains("active") || !currentCard) {
+        sticky?.classList.remove("visible");
+        sticky?.setAttribute("aria-hidden", "true");
+        return;
+      }
+
+      const contentTop = content.getBoundingClientRect().top;
+      const cardBottom = currentCard.getBoundingClientRect().bottom;
+      const show = cardBottom <= contentTop + 8;
+      sticky.classList.toggle("visible", show);
+      sticky.setAttribute("aria-hidden", show ? "false" : "true");
+    }
+
     function tick() {
       const state = currentPrayerState();
       const next = state.next;
       const current = state.previous;
       $("#nextPrayerName").textContent = current.name;
       $("#nextPrayerTime").textContent = current.time;
+      setStickyPrayer(current);
       $("#nextCountdownLabel").textContent = `${next.name} is in`;
       $("#countdown").textContent = formatDuration(next.date - state.now);
       const span = next.date - state.previous.date;
@@ -3246,6 +3348,7 @@
       $("#dayProgress").style.width = `${Math.max(8, Math.min(92, (elapsed / span) * 100))}%`;
       renderPrayerList(current.name);
       refreshIcons();
+      updateCurrentPrayerSticky();
     }
 
     function renderJummah() {
@@ -3325,7 +3428,10 @@
       if (page === "Full Schedule") renderFullSchedule();
       if (page === "Qibla") startQibla();
       refreshIcons();
+      updateCurrentPrayerSticky();
     }
+
+    $(".content").addEventListener("scroll", updateCurrentPrayerSticky, { passive: true });
 
     document.addEventListener("click", (event) => {
       const tab = event.target.closest("[data-tab]");
