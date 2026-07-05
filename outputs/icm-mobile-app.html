@@ -2153,13 +2153,13 @@
       left: 16px;
       right: 16px;
       bottom: 12px;
-      border: 1px solid rgba(255, 255, 255, .54);
+      border: 1px solid rgba(255, 255, 255, .68);
       border-radius: 28px;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, .74), rgba(255, 255, 255, .42)),
-        color-mix(in srgb, var(--surface) 58%, transparent);
-      -webkit-backdrop-filter: blur(22px) saturate(1.6);
-      backdrop-filter: blur(22px) saturate(1.6);
+        linear-gradient(135deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .26)),
+        rgba(251, 253, 252, .46);
+      -webkit-backdrop-filter: url(#liquidGlassNav) blur(18px) saturate(1.8) contrast(1.04);
+      backdrop-filter: url(#liquidGlassNav) blur(18px) saturate(1.8) contrast(1.04);
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       padding: 6px 8px 7px;
@@ -2167,23 +2167,39 @@
       z-index: 20;
       overflow: hidden;
       box-shadow:
-        0 20px 42px rgba(0, 63, 47, .14),
-        inset 0 1px 0 rgba(255, 255, 255, .76),
-        inset 0 -1px 0 rgba(0, 84, 61, .06);
+        0 22px 44px rgba(0, 63, 47, .16),
+        0 2px 8px rgba(255, 255, 255, .50),
+        inset 0 1px 0 rgba(255, 255, 255, .88),
+        inset 0 -10px 18px rgba(0, 84, 61, .055),
+        inset 0 -1px 0 rgba(0, 84, 61, .10);
       isolation: isolate;
     }
 
     .tabbar::before {
       content: "";
       position: absolute;
-      inset: 1px;
-      border-radius: 27px;
+      inset: 0;
+      border-radius: inherit;
       pointer-events: none;
       background:
-        radial-gradient(circle at 18% 0%, rgba(255, 255, 255, .86), transparent 34%),
-        linear-gradient(180deg, rgba(255, 255, 255, .42), transparent 46%);
-      opacity: .82;
+        radial-gradient(120px 48px at 18% 0%, rgba(255, 255, 255, .95), transparent 58%),
+        radial-gradient(110px 42px at 86% 105%, rgba(0, 84, 61, .13), transparent 62%),
+        linear-gradient(180deg, rgba(255, 255, 255, .48), rgba(255, 255, 255, 0) 52%);
+      opacity: .9;
       z-index: -1;
+    }
+
+    .tabbar::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 25px;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .42),
+        inset 9px 0 16px rgba(255, 255, 255, .20),
+        inset -10px 0 18px rgba(0, 84, 61, .075);
+      mix-blend-mode: screen;
     }
 
     .tab {
@@ -2205,8 +2221,12 @@
 
     .tab.active {
       color: var(--primary);
-      background: linear-gradient(180deg, rgba(255, 255, 255, .48), rgba(234, 244, 238, .36));
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .48);
+      background:
+        radial-gradient(circle at 50% -12%, rgba(255, 255, 255, .86), transparent 48%),
+        linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(234, 244, 238, .28));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .58),
+        inset 0 -1px 0 rgba(0, 84, 61, .06);
     }
 
     .tab > .site-icon {
@@ -2215,21 +2235,34 @@
     }
 
     [data-theme="dark"] .tabbar {
-      border-color: rgba(246, 247, 242, .12);
+      border-color: rgba(232, 191, 107, .18);
       background:
-        linear-gradient(135deg, rgba(10, 83, 63, .72), rgba(0, 31, 24, .52)),
-        rgba(0, 26, 20, .62);
+        linear-gradient(135deg, rgba(13, 92, 69, .46), rgba(0, 20, 15, .42)),
+        rgba(0, 24, 18, .58);
+      -webkit-backdrop-filter: url(#liquidGlassNav) blur(18px) saturate(1.7) contrast(1.08);
+      backdrop-filter: url(#liquidGlassNav) blur(18px) saturate(1.7) contrast(1.08);
       box-shadow:
-        0 22px 46px rgba(0, 0, 0, .36),
-        inset 0 1px 0 rgba(255, 255, 255, .12),
-        inset 0 -1px 0 rgba(0, 0, 0, .28);
+        0 22px 46px rgba(0, 0, 0, .38),
+        0 1px 10px rgba(232, 191, 107, .07),
+        inset 0 1px 0 rgba(255, 255, 255, .14),
+        inset 0 -10px 18px rgba(0, 0, 0, .24),
+        inset 0 -1px 0 rgba(0, 0, 0, .30);
     }
 
     [data-theme="dark"] .tabbar::before {
       background:
-        radial-gradient(circle at 18% 0%, rgba(139, 208, 168, .22), transparent 35%),
-        linear-gradient(180deg, rgba(255, 255, 255, .10), transparent 48%);
+        radial-gradient(120px 48px at 18% 0%, rgba(139, 208, 168, .22), transparent 58%),
+        radial-gradient(110px 42px at 86% 105%, rgba(232, 191, 107, .16), transparent 62%),
+        linear-gradient(180deg, rgba(255, 255, 255, .10), transparent 52%);
       opacity: 1;
+    }
+
+    [data-theme="dark"] .tabbar::after {
+      box-shadow:
+        inset 0 0 0 1px rgba(246, 247, 242, .08),
+        inset 9px 0 16px rgba(139, 208, 168, .08),
+        inset -10px 0 18px rgba(0, 0, 0, .18);
+      mix-blend-mode: normal;
     }
 
     [data-theme="dark"] .tab {
@@ -2755,6 +2788,15 @@
 </head>
 <body>
   <main class="phone" data-theme="light" aria-label="ICM mobile app prototype">
+    <svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+      <filter id="liquidGlassNav" x="-12%" y="-65%" width="124%" height="230%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018 0.105" numOctaves="1" seed="11" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="5.5" result="softNoise"/>
+        <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="18" xChannelSelector="R" yChannelSelector="G" result="refract"/>
+        <feGaussianBlur in="refract" stdDeviation=".18" result="softRefract"/>
+        <feColorMatrix in="softRefract" type="matrix" values="1.04 0 0 0 0  0 1.04 0 0 0  0 0 1.04 0 0  0 0 0 1 0"/>
+      </filter>
+    </svg>
     <div class="screen">
       <div class="current-prayer-sticky" id="currentPrayerSticky" aria-hidden="true">
         <div>
