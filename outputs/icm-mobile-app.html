@@ -1270,27 +1270,203 @@
     .detail-row span { color: var(--text-2); }
     .detail-row strong { font-weight: 600; font-variant-numeric: tabular-nums; }
 
-    .news-card {
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 86px 1fr;
-      gap: 14px;
-      margin-bottom: 10px;
+    .news-page .section-title {
+      margin-bottom: 12px;
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 800;
     }
 
-    .thumb {
-      border-radius: 10px;
-      background: var(--alt);
+    .news-feed {
+      display: grid;
+      gap: 14px;
+    }
+
+    .news-card {
+      min-height: 132px;
+      padding: 13px;
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      overflow: hidden;
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(0, 84, 61, .06);
+    }
+
+    .news-thumb {
+      width: 100%;
+      min-height: 104px;
+      border-radius: 8px;
+      overflow: hidden;
       display: grid;
       place-items: center;
       color: var(--primary);
-      min-height: 86px;
+      background: var(--green-pale);
+      border: 1px solid color-mix(in srgb, var(--border) 74%, transparent);
+      text-decoration: none;
     }
 
-    .date { color: var(--muted); font-size: 12px; display: flex; gap: 5px; align-items: center; }
-    .news-card h3 { margin: 6px 0 4px; font-size: 15px; line-height: 1.2; color: var(--text); }
-    .news-card p { margin: 0 0 8px; color: var(--text-2); font-size: 13px; line-height: 1.35; }
-    .read-more { color: var(--primary); font-size: 13px; font-weight: 800; display: inline-flex; gap: 5px; align-items: center; }
+    .news-thumb img {
+      width: 100%;
+      height: 100%;
+      min-height: 104px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .news-thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 104px;
+      padding: 12px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(246, 198, 91, .24), transparent 28%),
+        linear-gradient(135deg, #fbfaf6, #edf6f3);
+    }
+
+    .news-thumb-placeholder strong {
+      color: var(--primary);
+      max-width: 100%;
+      font-size: 11px;
+      line-height: 1.05;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      text-transform: uppercase;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .news-thumb-poster strong {
+      color: #8b5b78;
+      font-size: 10px;
+    }
+
+    .news-thumb-program strong {
+      color: #00543d;
+      font-size: 10px;
+    }
+
+    .news-content {
+      min-width: 0;
+      align-self: stretch;
+      display: grid;
+      align-content: center;
+      position: relative;
+      padding-right: 6px;
+    }
+
+    .news-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .news-date {
+      color: var(--primary);
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .news-category {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border-radius: 5px;
+      color: var(--primary);
+      background: var(--green-soft);
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .news-card h3 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 16.5px;
+      line-height: 1.12;
+      font-weight: 850;
+      letter-spacing: -.035em;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-card p {
+      margin: 0;
+      color: var(--text-2);
+      font-size: 13px;
+      line-height: 1.38;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    [data-theme="dark"] .news-card {
+      border-color: var(--soft-gold);
+      background: var(--surface);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, .20);
+    }
+
+    [data-theme="dark"] .news-thumb {
+      border-color: rgba(246, 247, 242, .10);
+      background: rgba(0, 0, 0, .18);
+    }
+
+    [data-theme="dark"] .news-thumb-placeholder {
+      background:
+        radial-gradient(circle at 18% 16%, rgba(246, 198, 91, .22), transparent 30%),
+        linear-gradient(135deg, #06261d, #0b4735);
+    }
+
+    [data-theme="dark"] .news-category {
+      color: #003f2f;
+      background: var(--soft-gold);
+    }
+
+    @media (max-width: 390px) {
+      .news-card {
+        grid-template-columns: 88px minmax(0, 1fr);
+        gap: 12px;
+        padding: 12px;
+      }
+
+      .news-thumb,
+      .news-thumb img,
+      .news-thumb-placeholder {
+        min-height: 88px;
+      }
+
+      .news-date {
+        font-size: 11px;
+      }
+
+      .news-category {
+        font-size: 9px;
+      }
+
+      .news-card h3 {
+        font-size: 15.5px;
+        -webkit-line-clamp: 3;
+      }
+
+      .news-card p {
+        font-size: 12.5px;
+        -webkit-line-clamp: 4;
+      }
+    }
 
     .qibla-page { gap: 14px; }
     .qibla-page.active { display: grid; }
@@ -2894,7 +3070,7 @@
           <div id="jummahCards"></div>
         </div>
 
-        <div class="page" data-page="News">
+        <div class="page news-page" data-page="News">
           <h2 class="section-title">Latest News</h2>
           <div id="newsList"></div>
         </div>
@@ -2991,12 +3167,47 @@
       ["3rd Shift", "2:00 PM", "Ustadh Yasir Khan", "Preparing the Heart for Worship"]
     ];
 
+    const CMS_CONFIG = window.ICM_APP_CONFIG = {
+      wordpressPostsEndpoint: "https://www.icmnc.org/wp-json/wp/v2/posts?_embed=1&per_page=20"
+    };
+    const WORDPRESS_NEWS_ENDPOINT = CMS_CONFIG.wordpressPostsEndpoint;
     const news = [
-      ["May 9, 2025", "ICM Food Drive This Weekend", "Help us support local families in need.", "shopping-bag"],
-      ["May 2, 2025", "ICM Youth Summit 2025", "Join youth from across the region for a weekend of faith, learning, and fun.", "users-round"],
-      ["Apr 25, 2025", "Eid al-Adha 2025 Information", "Key dates, prayer times, and guidance for Eid al-Adha.", "moon-star"],
-      ["Apr 18, 2025", "Sunday School Registration Open", "Register your children for Sunday School programs for the new term.", "book-open"],
-      ["Apr 11, 2025", "Volunteer Appreciation Dinner Recap", "Thank you to all our volunteers for your time and dedication.", "hand-heart"]
+      {
+        id: "icm-app-updates",
+        date: "Jun 28, 2026",
+        title: "ICM App And Community Updates For Prayer Times, Programs, And Announcements",
+        excerpt: "Use ICM's official app and website for prayer times, Jumu'ah updates, weekly program changes, registration reminders, volunteer needs, youth activities, social welfare notices, and community announcements that families need to check throughout the week.",
+        category: "Youth",
+        thumbnail: "logo",
+        url: "#"
+      },
+      {
+        id: "friday-announcements",
+        date: "Jun 19, 2026",
+        title: "Friday Announcements, Parking Notes, Youth Volunteers And Weekly Programs - June 19, 2026",
+        excerpt: "Community reminders covering monthly support, parking and traffic flow, youth volunteer signups, Nibras hiking, Friday Night Bukhari Circle, and the regular weekly program schedule.",
+        category: "Youth",
+        thumbnail: "flyer",
+        url: "#"
+      },
+      {
+        id: "youth-volunteers",
+        date: "Jun 19, 2026",
+        title: "Youth Volunteers Needed",
+        excerpt: "Help plan programs and serve the community.",
+        category: "Youth",
+        thumbnail: "poster",
+        url: "#"
+      },
+      {
+        id: "summer-quran",
+        date: "May 30, 2026",
+        title: "Summer Quran And Islamic Studies Registration",
+        excerpt: "Nibras classes run Monday through Thursday through August 20 with Quran, Islamic studies, student activities, parent updates, and registration reminders.",
+        category: "Program",
+        thumbnail: "program",
+        url: "#"
+      }
     ];
 
     const funds = [
@@ -3494,15 +3705,79 @@
       renderStaticSiteIcons($("#frontJummah"));
     }
 
+    function stripHtml(value = "") {
+      const template = document.createElement("template");
+      template.innerHTML = value;
+      return template.content.textContent.replace(/\s+/g, " ").trim();
+    }
+
+    function escapeHtml(value = "") {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function formatPostDate(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+      return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    }
+
+    function normalizeWordPressPost(post) {
+      const embedded = post._embedded || {};
+      const media = embedded["wp:featuredmedia"]?.[0];
+      const terms = (embedded["wp:term"] || []).flat();
+      const category = terms.find((term) => term.taxonomy === "category")?.name || "Announcement";
+      return {
+        id: post.id,
+        date: formatPostDate(post.date),
+        title: stripHtml(post.title?.rendered || "ICM Update"),
+        excerpt: stripHtml(post.excerpt?.rendered || ""),
+        category,
+        imageUrl: media?.source_url || "",
+        url: post.link || "#"
+      };
+    }
+
+    function newsThumbnail(post) {
+      if (post.imageUrl) {
+        return `<img src="${post.imageUrl}" alt="">`;
+      }
+      const variants = {
+        logo: "Islamic Center of Morrisville",
+        flyer: "Friday Announcements",
+        poster: "Volunteer for ICM Youth Program",
+        program: "Summer Quran and Islamic Studies"
+      };
+      const label = variants[post.thumbnail] || "ICM Update";
+      return `<div class="news-thumb-placeholder news-thumb-${post.thumbnail || "logo"}"><strong>${escapeHtml(label)}</strong></div>`;
+    }
+
+    async function loadWordPressNews(endpoint = WORDPRESS_NEWS_ENDPOINT) {
+      const response = await fetch(endpoint);
+      if (!response.ok) throw new Error(`Unable to load WordPress posts: ${response.status}`);
+      const posts = await response.json();
+      return posts.map(normalizeWordPressPost);
+    }
+
     function renderNews() {
-      $("#newsList").innerHTML = news.map(([date, headline, body, icon]) => `
-        <article class="card news-card">
-          <div class="thumb"><i class="large-icon" data-lucide="${icon}"></i></div>
-          <div>
-            <div class="date"><i data-lucide="calendar-days" style="width:14px;height:14px"></i>${date}</div>
-            <h3>${headline}</h3>
-            <p>${body}</p>
-            <span class="read-more">Read More <i data-lucide="chevron-right" style="width:14px;height:14px"></i></span>
+      $("#newsList").className = "news-feed";
+      $("#newsList").innerHTML = news.map((post) => `
+        <article class="card news-card" data-wp-post-id="${escapeHtml(post.id)}">
+          <a class="news-thumb" href="${escapeHtml(post.url || "#")}" aria-label="${escapeHtml(post.title)}">
+            ${newsThumbnail(post)}
+          </a>
+          <div class="news-content">
+            <div class="news-meta">
+              <span class="news-date">${escapeHtml(post.date)}</span>
+              <span class="news-category">${escapeHtml(post.category)}</span>
+            </div>
+            <h3>${escapeHtml(post.title)}</h3>
+            <p>${escapeHtml(post.excerpt)}</p>
           </div>
         </article>
       `).join("");
