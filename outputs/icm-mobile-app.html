@@ -2340,26 +2340,26 @@
 
     .qibla-needle {
       z-index: 5;
-      width: 96px;
-      height: 202px;
+      width: 122px;
+      height: 180px;
       position: relative;
       transform: rotate(var(--phone-angle, 0deg));
-      transform-origin: 50% 66%;
+      transform-origin: 50% 50%;
       transition: transform .35s ease;
-      filter: drop-shadow(0 12px 15px rgba(0, 84, 61, .16));
+      filter: drop-shadow(0 12px 16px rgba(0, 63, 47, .18));
     }
 
     .qibla-needle::before {
       content: "";
       position: absolute;
       left: 50%;
-      top: -6px;
-      width: 30px;
-      height: 142px;
+      top: 2px;
+      width: 44px;
+      height: 58px;
       transform: translateX(-50%);
-      background: linear-gradient(180deg, #00704d, #00543d);
-      clip-path: polygon(50% 0, 100% 31%, 66% 31%, 61% 100%, 39% 100%, 34% 31%, 0 31%);
-      border-radius: 8px;
+      background: #b97812;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      border-radius: 12px 12px 7px 7px;
     }
 
     .qibla-needle::after {
@@ -2575,11 +2575,11 @@
     }
 
     [data-theme="dark"] .qibla-needle {
-      filter: drop-shadow(0 12px 15px rgba(0, 0, 0, .30));
+      filter: drop-shadow(0 12px 16px rgba(0, 0, 0, .32));
     }
 
     [data-theme="dark"] .qibla-needle::before {
-      background: linear-gradient(180deg, #8bd0a8, #2e9c70);
+      background: #d99a24;
     }
 
     [data-theme="dark"] .kaaba {
