@@ -2159,24 +2159,38 @@
       left: 16px;
       right: 16px;
       bottom: 14px;
-      border: 1px solid rgba(255, 255, 255, .24);
+      border: 1px solid rgba(255, 255, 255, .30);
       border-radius: 999px;
-      background: rgba(255, 255, 255, .10);
-      -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(108%);
-      backdrop-filter: blur(28px) saturate(180%) contrast(108%);
+      background: rgba(255, 255, 255, .105);
+      -webkit-backdrop-filter: blur(30px) saturate(190%) contrast(110%);
+      backdrop-filter: blur(30px) saturate(190%) contrast(110%);
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       padding: 6px;
       position: absolute;
       z-index: 20;
       overflow: hidden;
-      box-shadow: none;
+      box-shadow:
+        0 18px 38px rgba(0, 31, 24, .22),
+        inset 0 1px 0 rgba(255, 255, 255, .34),
+        inset 0 -1px 0 rgba(0, 0, 0, .10);
       isolation: isolate;
-      --active-index: 0;
+      --indicator-x: 6px;
+      --indicator-w: 68px;
     }
 
     .tabbar::before {
-      content: none;
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(115px 44px at 18% 0%, rgba(255, 255, 255, .42), transparent 64%),
+        radial-gradient(120px 46px at 86% 100%, rgba(246, 198, 91, .16), transparent 66%),
+        linear-gradient(180deg, rgba(255, 255, 255, .15), transparent 46%),
+        linear-gradient(0deg, rgba(0, 0, 0, .10), transparent 44%);
+      z-index: 0;
     }
 
     .tabbar::after {
@@ -2184,16 +2198,20 @@
       position: absolute;
       top: 6px;
       bottom: 6px;
-      left: 6px;
-      width: calc((100% - 12px) / 5);
+      left: 0;
+      width: var(--indicator-w);
       border-radius: 999px;
       pointer-events: none;
       background:
-        rgba(255, 255, 255, .16);
-      border: 1px solid rgba(255, 255, 255, .20);
-      box-shadow: none;
-      transform: translateX(calc(var(--active-index) * 100%));
-      transition: transform .52s cubic-bezier(.22, 1.35, .34, 1);
+        radial-gradient(circle at 50% 3%, rgba(255, 255, 255, .44), transparent 50%),
+        rgba(255, 255, 255, .17);
+      border: 1px solid rgba(255, 255, 255, .26);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .30),
+        inset 0 -1px 0 rgba(0, 0, 0, .12),
+        0 8px 18px rgba(0, 31, 24, .12);
+      transform: translate3d(var(--indicator-x), 0, 0);
+      transition: transform .54s cubic-bezier(.2, 1.28, .28, 1), width .54s cubic-bezier(.2, 1.28, .28, 1), opacity .18s ease;
       z-index: 0;
     }
 
@@ -2204,7 +2222,7 @@
     .tab {
       border: 0;
       background: transparent;
-      color: rgba(18, 24, 39, .58);
+      color: rgba(255, 255, 255, .74);
       font: inherit;
       font-size: 9.8px;
       font-weight: 700;
@@ -2219,6 +2237,7 @@
       z-index: 1;
       transition: color .2s ease, transform .16s ease;
       -webkit-tap-highlight-color: transparent;
+      text-shadow: 0 1px 5px rgba(0, 63, 47, .42);
     }
 
     .tab:active {
@@ -2226,7 +2245,7 @@
     }
 
     .tab.active {
-      color: var(--primary);
+      color: #fff;
       background: transparent;
       box-shadow: none;
     }
@@ -2248,13 +2267,20 @@
     }
 
     [data-theme="dark"] .tabbar {
-      border-color: rgba(255, 255, 255, .18);
-      background: rgba(255, 255, 255, .08);
-      box-shadow: none;
+      border-color: rgba(255, 255, 255, .20);
+      background: rgba(255, 255, 255, .095);
+      box-shadow:
+        0 18px 38px rgba(0, 0, 0, .34),
+        inset 0 1px 0 rgba(255, 255, 255, .18),
+        inset 0 -1px 0 rgba(0, 0, 0, .18);
     }
 
     [data-theme="dark"] .tabbar::before {
-      content: none;
+      background:
+        radial-gradient(115px 44px at 18% 0%, rgba(255, 255, 255, .24), transparent 64%),
+        radial-gradient(120px 46px at 86% 100%, rgba(246, 198, 91, .18), transparent 66%),
+        linear-gradient(180deg, rgba(255, 255, 255, .10), transparent 46%),
+        linear-gradient(0deg, rgba(0, 0, 0, .16), transparent 44%);
     }
 
     [data-theme="dark"] .tab {
@@ -3487,8 +3513,14 @@
       const tabs = [...document.querySelectorAll(".tab")];
       const index = tabs.findIndex((node) => node.dataset.tab === page);
       if (!tabbar) return;
-      tabbar.style.setProperty("--active-index", String(Math.max(index, 0)));
       tabbar.classList.toggle("no-active", index < 0);
+      if (index < 0) return;
+
+      const activeTab = tabs[index];
+      const navRect = tabbar.getBoundingClientRect();
+      const tabRect = activeTab.getBoundingClientRect();
+      tabbar.style.setProperty("--indicator-x", `${Math.round(tabRect.left - navRect.left)}px`);
+      tabbar.style.setProperty("--indicator-w", `${Math.round(tabRect.width)}px`);
     }
 
     function setPage(page) {
@@ -3526,6 +3558,7 @@
           : themeChoice.dataset.themeChoice;
         phone.dataset.theme = theme;
         document.querySelectorAll("[data-theme-choice]").forEach((button) => button.classList.toggle("active", button === themeChoice));
+        updateTabIndicator(document.querySelector(".page.active")?.dataset.page);
       }
 
       const dayNav = event.target.closest("[data-day-nav]");
@@ -3592,6 +3625,10 @@
         qiblaState.headingMode = "manual";
         renderQibla();
       }
+    });
+
+    window.addEventListener("resize", () => {
+      updateTabIndicator(document.querySelector(".page.active")?.dataset.page);
     });
 
     seedFallbackTimetable();
