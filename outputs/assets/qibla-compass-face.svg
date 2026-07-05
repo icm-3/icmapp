@@ -1,0 +1,17 @@
+<svg width="420" height="420" viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="210" cy="210" r="202" fill="#FBFAF6"/>
+  <circle cx="210" cy="210" r="194" fill="#FFFFFF"/>
+  <circle cx="210" cy="210" r="184" stroke="#E8E2D3" stroke-width="1.2"/>
+  <circle cx="210" cy="210" r="154" stroke="#B9D2C9" stroke-width="1.4"/>
+  <circle cx="210" cy="210" r="128" stroke="#DDE8E3" stroke-width="1"/>
+  <circle cx="210" cy="210" r="98" fill="#F4FAF6"/>
+  <path d="M210 92L230 168L304 116L252 190L328 210L252 230L304 304L230 252L210 328L190 252L116 304L168 230L92 210L168 190L116 116L190 168L210 92Z" fill="#00543D" fill-opacity=".045"/>
+  <path d="M210 124L223 174L272 140L238 189L288 210L238 231L272 280L223 246L210 296L197 246L148 280L182 231L132 210L182 189L148 140L197 174L210 124Z" fill="#00543D" fill-opacity=".060"/>
+  <circle cx="210" cy="210" r="74" stroke="#E6EEE9" stroke-width="1"/>
+  <circle cx="210" cy="210" r="44" fill="#FFFFFF" filter="url(#shadow)"/>
+  <defs>
+    <filter id="shadow" x="143" y="143" width="134" height="134" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#003F2F" flood-opacity=".10"/>
+    </filter>
+  </defs>
+</svg>
