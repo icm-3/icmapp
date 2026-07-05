@@ -2570,8 +2570,8 @@
     }
 
     [data-theme="dark"] .qibla-tip {
-      background: #f6f7f2;
-      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, .24));
+      background: #d99a24;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, .26));
     }
 
     [data-theme="dark"] .qibla-needle {
@@ -2583,13 +2583,20 @@
     }
 
     [data-theme="dark"] .kaaba {
-      background: #f6f7f2;
-      box-shadow: 0 12px 26px rgba(0,0,0,.24), inset 0 0 0 1px rgba(0,0,0,.08);
+      background: #0b2d22;
+      box-shadow:
+        0 14px 28px rgba(0,0,0,.30),
+        inset 0 0 0 1px rgba(139, 208, 168, .18),
+        inset 0 1px 0 rgba(255,255,255,.06);
     }
 
     [data-theme="dark"] .kaaba img,
     [data-theme="dark"] .qibla-stat-icon img {
       mix-blend-mode: normal;
+    }
+
+    [data-theme="dark"] .kaaba img {
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,.22));
     }
 
     [data-theme="dark"] .qibla-stats {
